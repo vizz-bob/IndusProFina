@@ -1,6 +1,2 @@
 [web]
-webserver1 ansible_host=10.0.0.19
-webserver2 ansible_host=10.0.0.19
-
-[docker]
-dockerhost ansible_host=10.0.0.175
+10.0.0.19
