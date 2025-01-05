@@ -1,31 +1,30 @@
-- hosts: localhost
-  become: yes
-  tasks:
-    - name: Pull Docker Image from Docker Hub
-      community.docker.docker_image:
-        name: "vizzbob/my-web-app"
-        tag: "v1"
-        source: pull
+hosts: localhost
+become: yes
+tasks:
+  - name: Pull Docker Image from Docker Hub
+    community.docker.docker_image:
+      name: "vizzbob/my-web-app"
+      tag: "v1"
+      source: pull
 
-    - name: Run the Docker container on port 8081
-      community.docker.docker_container:
-        name: "my-web-app"
-        image: "vizzbob/my-web-app:v1"
-        state: started
-        ports:
-          - "8081:8080"
-      register: out
+  - name: Run the Docker container on port 8081
+    community.docker.docker_container:
+      name: "my-web-app"
+      image: "vizzbob/my-web-app:v1"
+      state: started
+      ports:
+        - "8081:8080"
+    register: out
 
-    - debug:
-        var: out
+  - debug:
+      var: out
 
   - name: Ensure kubectl is in the correct path
     shell: export PATH=$PATH:/snap/bin
 
   - name: Deploying to Kubernetes
     command: kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml
+    register: out
 
-      register: out
-
-    - debug:
-        var: out
+  - debug:
+      var: out
