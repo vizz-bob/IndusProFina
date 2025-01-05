@@ -12,6 +12,7 @@
       community.docker.docker_container:
         name: "my-web-app"
         image: "vizzbob/my-web-app:v1"
+        
         state: started
         ports:
           - "8081:8080"
