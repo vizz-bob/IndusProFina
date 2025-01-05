@@ -1,0 +1,16 @@
+- name: Deploy Docker container on target server
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Pull the Docker image
+      docker_image:
+        name: vizzbob/my-tomcat-app
+        source: pull
+
+    - name: Run the Docker container
+      docker_container:
+        name: tomcat-app-container
+        image: vizzbob/my-tomcat-app
+        state: started
+        ports:
+          - "8080:8080"
