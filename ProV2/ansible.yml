@@ -1,26 +1,31 @@
+---
 - hosts: localhost
   become: yes
+  collections:
+    - community.docker
   tasks:
-        - name: Pull Docker Image from Docker Hub
-          community.docker.docker_image:
-            name: "vizzbob/my-web-app"
-            tag: "v1"
-            source: pull
-          
-        - name: Run the Docker container on port 8081
-          community.docker.docker_container:
-             name: "my-web-app"
-             image: "vizzbob/my-web-app:v1"
-             state: started
-             ports:
-                 - "8080:8080"
-             #restart: true
-          register: out
-        - debug:
-              var: out
-             #- name: Deploying to kubernetes
-        - name: Create a Deployment by reading the definition from a local file 
-          command: "kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml"    
-          register: out
-        - debug:
-              var: out
+    - name: Pull Docker Image from Docker Hub
+      community.docker.docker_image:
+        name: "vizzbob/my-web-app"
+        tag: "v1"
+        source: pull
+
+    - name: Run the Docker container on port 8081
+      community.docker.docker_container:
+        name: "my-web-app"
+        image: "vizzbob/my-web-app:v1"
+        state: started
+        ports:
+          - "8080:8080"
+        #restart: true
+      register: out
+
+    - debug:
+        var: out
+
+    - name: Create a Deployment by reading the definition from a local file
+      command: "kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml"
+      register: out
+
+    - debug:
+        var: out
