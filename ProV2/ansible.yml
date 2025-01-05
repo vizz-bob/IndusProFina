@@ -13,7 +13,7 @@
              image: "vizzbob/my-web-app:v1"
              state: started
              ports:
-                 - "8080:8081"
+                 - "8080:8080"
              #restart: true
           register: out
         - debug:
