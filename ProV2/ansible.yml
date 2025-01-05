@@ -2,10 +2,10 @@
   become: yes
   tasks:
         - name: Pull Docker Image from Docker Hub
-      community.docker.docker_image:
-        name: "vizzbob/my-web-app"
-        tag: "v1"
-        source: pull
+          community.docker.docker_image:
+            name: "vizzbob/my-web-app"
+            tag: "v1"
+            source: pull
           
         - name: Run the Docker container on port 8081
           community.docker.docker_container:
