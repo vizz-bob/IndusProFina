@@ -19,8 +19,12 @@
     - debug:
         var: out
 
-    - name: Deploying to kubernetes
-      command: "kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml"
+  - name: Ensure kubectl is in the correct path
+    shell: export PATH=$PATH:/snap/bin
+
+  - name: Deploying to Kubernetes
+    command: kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml
+
       register: out
 
     - debug:
